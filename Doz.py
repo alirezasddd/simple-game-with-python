@@ -38,18 +38,49 @@ def clicked(btn):
 
 
 def rule():
-    if (results[0] == results[1] == results[2] and results[0] != ""):
+     if (results[0]==results[1]==results[2] and results[0]!=""):
         show_winner(results[0])
-
+     elif(results[3]==results[4]==results[5] and results[3]!=""):
+        show_winner(3)
+     elif(results[6]==results[7]==results[8] and results[6]!=""):
+        show_winner(6)
+     elif(results[0]==results[3]==results[6] and results[0]!=""):
+        show_winner(0)
+     elif(results[1]==results[4]==results[7] and results[1]!=""):
+        show_winner(1)
+     elif(results[2]==results[5]==results[8] and results[2]!=""):
+        show_winner(2)
+     elif(results[0]==results[4]==results[8] and results[0]!=""):
+        show_winner(0)
+     elif(results[2]==results[4]==results[6] and results[2]!=""):
+        show_winner(2)
+     else:
+        check_draw()
+    
 
 def show_winner(winner):
     if winner == "X":
         points[0] += 1
         showinfo("game ended", "player num one wined")
+        reset()
     else:
-        points[0] += 1 
+        points[1] += 1
         showinfo("game ended", "player num two wined")
         print(points)
+        reset()
+
+
+def reset():
+    global results, turn
+    results = ["", "", "", "", "", "", "", "", ""]
+    turn = "X"
+    point()
+    boards()
+
+def check_draw():
+    if "" not in results:
+        showinfo("game ended", "the two players are same")
+        reset()
 
 
 def point():
@@ -90,4 +121,4 @@ def boards():
 point()
 boards()
 window.mainloop()
-# 18:48
+
