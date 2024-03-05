@@ -1,13 +1,14 @@
 import tkinter as tk
-from cgitb import text
-from unittest import result
+from tkinter.messagebox import showinfo
+
 
 window = tk.Tk()
 window.title("Doz Game")
 
-global turn, results
+global turn, results, points
 turn = "X"
 results = ["", "", "", "", "", "", "", "", ""]
+points = [0, 0]
 
 
 def clicked(btn):
@@ -21,7 +22,7 @@ def clicked(btn):
             buttens[btn]["bg"] = "red"
             buttens[btn]["fg"] = "white"
             buttens[btn]["text"] = "X"
-            buttens[btn]["relief"]=tk.RIDGE
+            buttens[btn]["relief"] = tk.RIDGE
           #  buttens[btn]["state"]=tk.DISABLED
             turn = "O"
 
@@ -32,10 +33,27 @@ def clicked(btn):
             buttens[btn]["text"] = "O"
         #  buttens[btn]["state"]=tk.DISABLED
             turn = "X"
-        print(results)
+
+    rule()
+
+
+def rule():
+    if (results[0] == results[1] == results[2] and results[0] != ""):
+        show_winner(results[0])
+
+
+def show_winner(winner):
+    if winner == "X":
+        points[0] += 1
+        showinfo("game ended", "player num one wined")
+    else:
+        points[0] += 1 
+        showinfo("game ended", "player num two wined")
+        print(points)
 
 
 def point():
+    global points
     board_frame = tk.Frame(window)
     board_frame.grid(row=0)
     label_player_one = tk.Label(board_frame, text="player num1", padx=10)
@@ -45,8 +63,8 @@ def point():
 
     point_frame = tk.Frame(window)
     point_frame.grid(row=1)
-    point_player_one = tk.Label(point_frame, text="0", padx=20)
-    point_player_two = tk.Label(point_frame, text="0", padx=20)
+    point_player_one = tk.Label(point_frame, text=points[0], padx=20)
+    point_player_two = tk.Label(point_frame, text=points[1], padx=20)
     point_player_one.grid(row=0, column=0)
     point_player_two.grid(row=0, column=1)
 
@@ -72,4 +90,4 @@ def boards():
 point()
 boards()
 window.mainloop()
-#18:48
+# 18:48
